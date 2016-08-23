@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ipush.dao.GroupMemberMappingMapper" >
+  <resultMap id="BaseResultMap" type="ipush.model.GroupMemberMapping" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="ipush.model.GroupMemberMapping" >
+    insert into t_member_group_mapping (id, group_id, member_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="ipush.model.GroupMemberMapping" >
+    insert into t_member_group_mapping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from t_member_group_mapping
+  </select>
+  
+  <select id="selectCountOfMember" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from t_member_group_mapping where group_id =  #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectMemberByGroupId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select member_id from t_member_group_mapping where group_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+</mapper>

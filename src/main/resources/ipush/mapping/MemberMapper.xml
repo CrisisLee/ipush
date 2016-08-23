@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ipush.dao.MemberMapper" >
+  <resultMap id="BaseResultMap" type="ipush.model.Member" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="mobile_num" property="mobileNum" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="weibo_id" property="weiboId" jdbcType="VARCHAR" />
+    <result column="channel_prop" property="channelProp" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_user_id, member_name, mobile_num, email, open_id, weibo_id, channel_prop
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from t_member
+  </select>
+  
+  <select id="selectByCreateUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	select * from t_member where create_user_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="ipush.model.Member" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_member (id, create_user_id, member_name, 
+      mobile_num, email, open_id, 
+      weibo_id, channel_prop)
+    values (#{id,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, 
+      #{mobileNum,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+      #{weiboId,jdbcType=VARCHAR}, #{channelProp,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="ipush.model.Member" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="mobileNum != null" >
+        mobile_num,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="weiboId != null" >
+        weibo_id,
+      </if>
+      <if test="channelProp != null" >
+        channel_prop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNum != null" >
+        #{mobileNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboId != null" >
+        #{weiboId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelProp != null" >
+        #{channelProp,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="ipush.model.Member" >
+    update t_member
+    <set >
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNum != null" >
+        mobile_num = #{mobileNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboId != null" >
+        weibo_id = #{weiboId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelProp != null" >
+        channel_prop = #{channelProp,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ipush.model.Member" >
+    update t_member
+    set create_user_id = #{createUserId,jdbcType=INTEGER},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      mobile_num = #{mobileNum,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      weibo_id = #{weiboId,jdbcType=VARCHAR},
+      channel_prop = #{channelProp,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

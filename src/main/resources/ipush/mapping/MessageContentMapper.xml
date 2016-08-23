@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ipush.dao.MessageContentMapper" >
+  <resultMap id="BaseResultMap" type="ipush.model.MessageContent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="news_id" property="newsId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="ipush.model.MessageContentWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="tmsg_content" property="tmsgContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, news_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, tmsg_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_message_content
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_message_content
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="ipush.model.MessageContentWithBLOBs"  useGeneratedKeys="true" keyProperty="id" >
+    insert into t_message_content (id, type, news_id, 
+      content, tmsg_content)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{newsId,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR}, #{tmsgContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ipush.model.MessageContentWithBLOBs"  useGeneratedKeys="true" keyProperty="id" >
+    insert into t_message_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="newsId != null" >
+        news_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="tmsgContent != null" >
+        tmsg_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="newsId != null" >
+        #{newsId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tmsgContent != null" >
+        #{tmsgContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="ipush.model.MessageContentWithBLOBs" >
+    update t_message_content
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="newsId != null" >
+        news_id = #{newsId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tmsgContent != null" >
+        tmsg_content = #{tmsgContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="ipush.model.MessageContentWithBLOBs" >
+    update t_message_content
+    set type = #{type,jdbcType=INTEGER},
+      news_id = #{newsId,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR},
+      tmsg_content = #{tmsgContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ipush.model.MessageContent" >
+    update t_message_content
+    set type = #{type,jdbcType=INTEGER},
+      news_id = #{newsId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ipush.dao.UserSettingMapper" >
+  <resultMap id="BaseResultMap" type="ipush.model.UserSetting" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="weixin_app_id" property="weixinAppId" jdbcType="VARCHAR" />
+    <result column="weixin_app_secret" property="weixinAppSecret" jdbcType="VARCHAR" />
+    <result column="weibo_app_key" property="weiboAppKey" jdbcType="VARCHAR" />
+    <result column="weibo_app_secret" property="weiboAppSecret" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, domain, sign, weixin_app_id, weixin_app_secret, weibo_app_key, weibo_app_secret
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_settings
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user_settings
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="ipush.model.UserSetting" >
+    insert into t_user_settings (id, domain, sign, 
+      weixin_app_id, weixin_app_secret, weibo_app_key, 
+      weibo_app_secret)
+    values (#{id,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{weixinAppId,jdbcType=VARCHAR}, #{weixinAppSecret,jdbcType=VARCHAR}, #{weiboAppKey,jdbcType=VARCHAR}, 
+      #{weiboAppSecret,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ipush.model.UserSetting" >
+    insert into t_user_settings
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="weixinAppId != null" >
+        weixin_app_id,
+      </if>
+      <if test="weixinAppSecret != null" >
+        weixin_app_secret,
+      </if>
+      <if test="weiboAppKey != null" >
+        weibo_app_key,
+      </if>
+      <if test="weiboAppSecret != null" >
+        weibo_app_secret,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinAppId != null" >
+        #{weixinAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinAppSecret != null" >
+        #{weixinAppSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboAppKey != null" >
+        #{weiboAppKey,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboAppSecret != null" >
+        #{weiboAppSecret,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="ipush.model.UserSetting" >
+    update t_user_settings
+    <set >
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinAppId != null" >
+        weixin_app_id = #{weixinAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinAppSecret != null" >
+        weixin_app_secret = #{weixinAppSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboAppKey != null" >
+        weibo_app_key = #{weiboAppKey,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboAppSecret != null" >
+        weibo_app_secret = #{weiboAppSecret,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ipush.model.UserSetting" >
+    update t_user_settings
+    set domain = #{domain,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      weixin_app_id = #{weixinAppId,jdbcType=VARCHAR},
+      weixin_app_secret = #{weixinAppSecret,jdbcType=VARCHAR},
+      weibo_app_key = #{weiboAppKey,jdbcType=VARCHAR},
+      weibo_app_secret = #{weiboAppSecret,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
